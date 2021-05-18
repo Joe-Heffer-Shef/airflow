@@ -1,1 +1,0 @@
-apache-airflow-providers-ssh==1.3.*
