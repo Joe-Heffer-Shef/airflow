@@ -52,15 +52,15 @@ query {
   }
 }
 """)))
+    devices = response.json()['data']['allDevices']
 
     # Iterate over devices
-    for device in response.json()['data']['allDevices']:
+    for device in devices:
         # Download raw data for each device
-        task_id = 'raw_{}'.format(device['id'])
         get_raw_data = GraphQLHttpOperator(
             http_conn_id='datacake_airbods',
-            task_id=task_id,
-            doc=device['verboseName'],
+            task_id='raw_{}'.format(device['id']),
+            doc="Get raw data for {}".format(device['verboseName']),
             params=device,
             # Jinja escape characters for GraphQL syntax
             query="""
